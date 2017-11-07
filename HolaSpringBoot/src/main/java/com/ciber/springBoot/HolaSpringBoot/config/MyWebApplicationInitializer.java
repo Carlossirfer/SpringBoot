@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ciber.springBoot.HolaSpringBoot.config;
 
 import javax.servlet.ServletContext;
