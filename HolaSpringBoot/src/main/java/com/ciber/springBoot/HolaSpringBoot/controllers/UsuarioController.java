@@ -12,6 +12,8 @@ import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,19 +57,20 @@ public class UsuarioController {
 		return new ModelAndView("home");
 	}
 
-//	@Secured({ "ROLE_ADMIN" })
-//	@RequestMapping("/resource")
-//	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails) {
-//		Client client = users.findOne("{#: #}", Client.USERNAME, userDetails.getUsername()).as(Client.class);
-//		Map<String, Object> model = new HashMap<>();
-//		model.put("roles", client.getRoles());
-//		return new ModelAndView("home");
-//	}
-
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute Usuario user) {
 		mongo.insert(user, "usuarios2");
 		return "redirect:home";
+	}
+	
+	@RequestMapping("/entramos")
+	public String error() {
+		return "entramos";
+	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "login";
 	}
 
 	@RequestMapping(value = "/search")
@@ -78,8 +81,8 @@ public class UsuarioController {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public String error404(Exception ex, HttpServletResponse response) {
-		return "error";
+	public ModelAndView accesoDenegado(Exception ex, HttpServletResponse response) {
+		return new ModelAndView("error","Exception",ex);
 	}
 
 }
