@@ -27,7 +27,7 @@ public class MyWebApplicationInitializer implements ServletContextInitializer{
 
         ServletRegistration.Dynamic registration = servletContext.addServlet("springmvc", new DispatcherServlet(appContext));
         registration.setLoadOnStartup(1);
-        registration.addMapping("/s/*");
+        registration.addMapping("/*");
 	}
 
 }

@@ -32,10 +32,11 @@ public class DaoUsers {
 	
 	
 	public Collection<Usuario> searchUsers(String text) {
+		
 		return (Collection<Usuario>) mongo.find(Query.query(new Criteria()
 						.orOperator(Criteria.where("nombre").regex(text, "i"), 
 									Criteria.where("apellidos").regex(text, "i"))
-						), Usuario.class);
+						), Usuario.class,"usuarios2");
 		
 
 	}
