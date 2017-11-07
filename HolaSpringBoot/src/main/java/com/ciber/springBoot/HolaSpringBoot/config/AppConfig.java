@@ -3,8 +3,10 @@
  */
 package com.ciber.springBoot.HolaSpringBoot.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * @author ciber
@@ -14,11 +16,11 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {"com.ciber.springBoot.HolaSpringBoot"})
 public class AppConfig {
 
-//    @Bean
-//    public InternalResourceViewResolver getInternalResourceViewResolver() {
-//        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//        resolver.setPrefix("/templates");
-//        resolver.setSuffix(".jsp");
-//        return resolver;
-//    }
+    @Bean
+    public InternalResourceViewResolver getInternalResourceViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/templates");
+        resolver.setSuffix(".html");
+        return resolver;
+    }
 }
