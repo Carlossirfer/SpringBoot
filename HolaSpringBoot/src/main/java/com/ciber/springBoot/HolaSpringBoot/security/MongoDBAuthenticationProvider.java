@@ -59,7 +59,8 @@ public class MongoDBAuthenticationProvider extends AbstractUserDetailsAuthentica
 
 		try {
 			Query query = new Query();
-			query.addCriteria(Criteria.where("username").is(username));
+			query.addCriteria(Criteria.where("username").is(username)
+					.andOperator(Criteria.where("password").is(authentication.getCredentials())));
 			MongoUser user = mongo.findOne(query, MongoUser.class, "users");
 		
 			//TENEMOS QUE CONVERTIR LOS ROLES QUE NOS VIENEN EN UN LIST<STRING> A UN LIST<GRANTEDAUTHORITY>
