@@ -1,18 +1,9 @@
 package com.ciber.springBoot.HolaSpringBoot;
 
-import java.net.UnknownHostException;
-
-import org.jongo.Jongo;
-import org.jongo.MongoCollection;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
-
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
 
 //utilizamos el exclude para quitar el distpatcherServlet por defecto en /* y coge el nuestro /s/*
 @SpringBootApplication(exclude = { DispatcherServletAutoConfiguration.class })
@@ -32,16 +23,4 @@ public class HolaSpringBootApplication {
 		SpringApplication.run(HolaSpringBootApplication.class, args);
 	}
 	
-	@Bean
-    public Jongo jongo() {
-        DB db;
-        db = new MongoClient("127.0.0.1", 27017).getDB("usuarioslogin");
-        return new Jongo(db);
-    }
-
-    @Bean
-    public MongoCollection users() {
-        return jongo().getCollection("users");
-    }
-
 }

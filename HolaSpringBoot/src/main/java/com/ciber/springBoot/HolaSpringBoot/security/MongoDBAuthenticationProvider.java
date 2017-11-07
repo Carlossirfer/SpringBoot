@@ -18,10 +18,8 @@
 
 package com.ciber.springBoot.HolaSpringBoot.security;
 
-
 import java.util.List;
 
-import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -31,48 +29,54 @@ import org.springframework.security.authentication.InternalAuthenticationService
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.ciber.springBoot.HolaSpringBoot.domain.Client;
+import com.ciber.springBoot.HolaSpringBoot.beans.MongoUser;	
 
 @Service
 @Repository
 public class MongoDBAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    @Autowired
-    private MongoCollection users;
-//	
-//	@Autowired
-//	@Qualifier(value = "mongoTemplateUsuariosLogin")
-//	private MongoTemplate mongo;
+	@Autowired
+	@Qualifier(value = "mongoTemplateUsuariosLogin")
+	private MongoTemplate mongo;
 
-    @Override
-    protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+	@Override
+	protected void additionalAuthenticationChecks(UserDetails userDetails,
+			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
-    }
+	}
 
-    @Override
-    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-        UserDetails loadedUser;
+	@Override
+	protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication)
+			throws AuthenticationException {
+		UserDetails loadedUser;
 
-        try {
-            Client client = users.findOne("{#: #}", Client.USERNAME, username).as(Client.class);
-//        	Query query = new Query();
-//        	query.addCriteria(Criteria.where("username").is(username));
-//        	List<Client> clientes = mongo.find(query, Client.class);
-       
-            loadedUser = new User(client.getUsername(), client.getPassword(), client.getRoles());
-        } catch (Exception repositoryProblem) {
-            throw new InternalAuthenticationServiceException(repositoryProblem.getMessage(), repositoryProblem);
-        }
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("username").is(username));
+			MongoUser user = mongo.findOne(query, MongoUser.class, "users");
+		
+			//TENEMOS QUE CONVERTIR LOS ROLES QUE NOS VIENEN EN UN LIST<STRING> A UN LIST<GRANTEDAUTHORITY>
+			List<GrantedAuthority> authoritys;
+			String roles = "";
+			for (int i = 0; i < user.getRoles().size(); i++) {
+				roles+=user.getRoles().get(i)+",";
+			}
+			
+			//CREAMOS LA LISTA DE AUTHORITYS
+			authoritys=AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
+			loadedUser = new User(user.getUsername(), user.getPassword(), authoritys);
+			
+		} catch (Exception repositoryProblem) {
+			throw new InternalAuthenticationServiceException(repositoryProblem.getMessage(), repositoryProblem);
+		}
 
-        if (loadedUser == null) {
-            throw new InternalAuthenticationServiceException(
-                    "UserDetailsService returned null, which is an interface contract violation");
-        }
-        return loadedUser;
-    }
+		return loadedUser;
+	}
 }
