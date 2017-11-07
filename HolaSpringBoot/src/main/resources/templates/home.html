@@ -2,44 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8"/>
-<title>MongoDB/Spring Boot tutorial from tests4geeks.com</title>
-<style>
-table, th, td {
-	border: 1px solid black;
-	border-spacing: 0px;
-}
-
-th, td {
-	padding: 10px;
-}
-</style>
+<title>Title of the document</title>
 </head>
-<body>
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Apellido</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="user : ${userList}">
-				<td th:text="${user.nombre}"></td>
-				<td th:text="${user.apellidos}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<br />
-	<h2>Añadir Usuario</h2>
-	<form action="/addUser" method="POST">
-		Nombre <input type="text" id="nombre" name="nombre" /><br />
-		Apellidos <input type="text" id="apellidos" name="apellidos" /><br />
-		<input type="submit" />
-	</form>
-	<h2>Buscar por Usuario</h2>
-	<form action="/search" method="GET">
-		<input type="text" name="search" id="search" th:value="${search}" />
-		<input type="submit" value="Search" />
-	</form>
+
+<body>HEMOS ENTRADO PAGINA HOME
 </body>
+
 </html>

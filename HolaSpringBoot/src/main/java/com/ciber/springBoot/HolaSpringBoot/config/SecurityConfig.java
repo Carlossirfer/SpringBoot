@@ -51,12 +51,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	
     	http
 		.authorizeRequests()
+		.antMatchers("/").permitAll()
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
 			.loginPage("/login")
 			.defaultSuccessUrl("/home")
 			.permitAll()
+			.and()
+		.logout()                                                                                                              
+			.logoutSuccessUrl("/login")                                           
 			.and().csrf().disable();
 
 //        http.formLogin().defaultSuccessUrl("/home")
@@ -70,4 +74,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
+    
+    
 }

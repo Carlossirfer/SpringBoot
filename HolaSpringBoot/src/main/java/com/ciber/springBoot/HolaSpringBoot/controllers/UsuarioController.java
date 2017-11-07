@@ -3,19 +3,13 @@
  */
 package com.ciber.springBoot.HolaSpringBoot.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletResponse;
 
 import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -49,23 +43,28 @@ public class UsuarioController {
 	private MongoCollection users;
 
 	@Secured({ "ROLE_ADMIN" })
-	@RequestMapping("/home")
+	@RequestMapping("/mongo")
 	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
 		Client client = users.findOne("{#: #}", Client.USERNAME, userDetails.getUsername()).as(Client.class);
 		model.addAttribute("roles", client.getRoles());
 		model.addAttribute("userList", daoUsers.findAll());
-		return new ModelAndView("home");
+		return new ModelAndView("mongo");
 	}
 
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute Usuario user) {
 		mongo.insert(user, "usuarios2");
-		return "redirect:home";
+		return "redirect:mongo";
 	}
 	
-	@RequestMapping("/entramos")
-	public String error() {
-		return "entramos";
+	@RequestMapping("/")
+	public String index() {
+		return "index";
+	}
+	
+	@RequestMapping("/home")
+	public String home() {
+		return "home";
 	}
 	
 	@RequestMapping("/login")
@@ -77,7 +76,7 @@ public class UsuarioController {
 	public String search(Model model, @RequestParam String search) {
 		model.addAttribute("userList", daoUsers.searchUsers(search));
 		model.addAttribute("search", search);
-		return "home";
+		return "mongo";
 	}
 
 	@ExceptionHandler(Exception.class)
