@@ -12,8 +12,8 @@
         <!-- this is footer -->
        	Esto es el footer.
             <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
+                | Logged user: <span th:text="${usuario}"></span> |
+                Roles: <span th:text="${roles}"></span> |
                 <a th:href="@{/logout}">Sign Out</a>
             </span>
 

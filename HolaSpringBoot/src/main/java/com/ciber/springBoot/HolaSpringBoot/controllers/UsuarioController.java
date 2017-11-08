@@ -4,6 +4,7 @@
 package com.ciber.springBoot.HolaSpringBoot.controllers;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -46,11 +47,13 @@ public class UsuarioController {
 
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping("/mongo")
-	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession httpSesion) {
 
 		Query query = new Query();
 		query.addCriteria(Criteria.where("username").is(userDetails.getUsername()));
 		MongoUser user = mongoLogin.findOne(query, MongoUser.class, "users");
+		model.addAttribute("usuario", httpSesion.getAttribute("usuario").toString());
+		model.addAttribute("roles", httpSesion.getAttribute("roles").toString());
 		model.addAttribute("roles", user.getRoles());
 		model.addAttribute("userList", daoUsers.findAll());
 		return new ModelAndView("mongo");
@@ -68,7 +71,9 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/home")
-	public String home() {
+	public String home(HttpSession httpSesion, Model model) {
+		model.addAttribute("usuario", httpSesion.getAttribute("usuario").toString());
+		model.addAttribute("roles", httpSesion.getAttribute("roles").toString());
 		return "home";
 	}
 

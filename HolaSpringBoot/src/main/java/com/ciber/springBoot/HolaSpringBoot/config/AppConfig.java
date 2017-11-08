@@ -23,4 +23,5 @@ public class AppConfig {
         resolver.setSuffix(".html");
         return resolver;
     }
+ 
 }

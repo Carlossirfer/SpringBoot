@@ -12,10 +12,6 @@
 
 	<div class="container">
 
-		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" />
-		</form>
 		<br />
 		<div class="starter-template">
 			<h1>Spring Boot + Spring Security + Thymeleaf + Mongo + Rest</h1>
