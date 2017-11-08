@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfigura
 import org.springframework.web.client.RestTemplate;
 
 //utilizamos el exclude para quitar el distpatcherServlet por defecto en /* y coge el nuestro /s/*
-@SpringBootApplication(exclude = { DispatcherServletAutoConfiguration.class })
+@SpringBootApplication(exclude = { DispatcherServletAutoConfiguration.class})
 public class HolaSpringBootApplication {
 
 	//CONSTANTE CON LA URL DE LA API

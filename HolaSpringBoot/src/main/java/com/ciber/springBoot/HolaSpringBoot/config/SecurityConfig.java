@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import com.ciber.springBoot.HolaSpringBoot.security.MongoDBAuthenticationProvider;
 
@@ -21,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MongoDBAuthenticationProvider authenticationProvider;
 
+    @Autowired
+    private AccessDeniedHandler accessDeniedHandler;
+    
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/js/**", "/css/**");
@@ -32,6 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	http
 		.authorizeRequests()
 		.antMatchers("/").permitAll()
+		.antMatchers("/mongo").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/api/posts").hasAnyAuthority("ROLE_USER")
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
@@ -41,7 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.logout()                                                                                                              
 			.logoutSuccessUrl("/login")                                           
-			.and().csrf().disable();
+			.and()
+            .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+            .and()
+			.csrf().disable();
+    	
     }
 
     @Autowired

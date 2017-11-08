@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,7 +48,7 @@ public class UsuarioController {
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping("/mongo")
 	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-		
+
 		Query query = new Query();
 		query.addCriteria(Criteria.where("username").is(userDetails.getUsername()));
 		MongoUser user = mongoLogin.findOne(query, MongoUser.class, "users");
@@ -84,9 +85,14 @@ public class UsuarioController {
 		return "mongo";
 	}
 
-	@ExceptionHandler(Exception.class)
+	@GetMapping("/error")
 	public ModelAndView accesoDenegado(Exception ex, HttpServletResponse response) {
 		return new ModelAndView("error", "Exception", ex);
+	}
+
+	@GetMapping("/403")
+	public String error403() {
+		return "/error/403";
 	}
 
 }

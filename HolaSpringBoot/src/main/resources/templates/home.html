@@ -1,17 +1,39 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<title>Title of the document</title>
+<title>Spring Boot Thymeleaf + Spring Security</title>
+
+<div th:replace="fragments/header :: header-css" />
+
 </head>
-
 <body>
-	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Sign Out" />
-	</form>
-	<br/>
-	<h1>HEMOS ENTRADO PAGINA HOME</h1>
-</body>
 
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+
+		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" />
+		</form>
+		<br />
+		<div class="starter-template">
+			<h1>Spring Boot + Spring Security + Thymeleaf + Mongo + Rest</h1>
+			<h2>
+				1. Ir a <a th:href="@{/mongo}">pagina de administración de usuarios de mongo. Role Admin</a>
+			</h2>
+			<h2>
+				2. Ir a <a th:href="@{/api/posts}">pagina de posts, conexión rest. Role User</a>
+			</h2>
+			<h2>
+				3. Ir a <a th:href="@{/api/books}">pagina de books, conexion con otro rest. No se necesita Role.</a>
+			</h2>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	<div th:replace="fragments/footer :: footer" />
+
+</body>
 </html>

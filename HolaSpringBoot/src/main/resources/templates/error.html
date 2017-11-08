@@ -1,15 +1,28 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
-<title>Title of the document</title>
-</head>
+<link rel="stylesheet" type="text/css"
+	href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
 
-<body>PAGINA DE ERROR
-		
-<h1 th:text="${Exception}">
-</h1>
+<link rel="stylesheet" th:href="@{/css/main.css}"
+	href="../static/css/main.css" />
+</head>
+<body>
+
+	<div th:replace="/fragments/header :: header"></div>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h1 th:text="${Exception}"></h1>
+			<div th:inline="text">Hello
+				'[[${#httpServletRequest.remoteUser}]]'</div>
+		</div>
+
+	</div>
+	<!-- /.container -->
+
+	<div th:replace="/fragments/footer :: footer"></div>
 
 </body>
-
 </html>
