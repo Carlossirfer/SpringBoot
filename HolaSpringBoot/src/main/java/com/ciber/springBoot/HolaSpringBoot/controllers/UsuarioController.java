@@ -15,7 +15,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -83,6 +82,16 @@ public class UsuarioController {
 		model.addAttribute("userList", daoUsers.searchUsers(search));
 		model.addAttribute("search", search);
 		return "mongo";
+	}
+	
+	@RequestMapping(value = "/delete")
+	public String delete(Model model, @RequestParam String delete) {
+		Query query = new Query();
+		query.addCriteria(Criteria.where("nombre").is(delete));
+		model.addAttribute("userList", mongoApp.findAndRemove(query, Usuario.class,"usuarios2"));
+		model.addAttribute("search", delete);
+		return "redirect:mongo";
+
 	}
 
 	@GetMapping("/error")

@@ -1,51 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8"/>
+<meta charset="UTF-8" />
 <title>MongoDB/Spring Boot tutorial from tests4geeks.com</title>
-<style>
-table, th, td {
-	border: 1px solid black;
-	border-spacing: 0px;
-}
-
-th, td {
-	padding: 10px;
-}
-</style>
+<div th:replace="fragments/header :: header-css" />
 </head>
 <body>
+	<div th:replace="fragments/header :: header" />
 
-	<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-	<form th:action="@{/logout}" method="post">
-		<input type="submit" value="Sign Out" />
-	</form>
-	<br/>
-	<table>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Apellido</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="user : ${userList}">
-				<td th:text="${user.nombre}"></td>
-				<td th:text="${user.apellidos}"></td>
-			</tr>
-		</tbody>
-	</table>
-	<br />
-	<h2>Añadir Usuario</h2>
-	<form action="/addUser" method="POST">
-		Nombre <input type="text" id="nombre" name="nombre" /><br />
-		Apellidos <input type="text" id="apellidos" name="apellidos" /><br />
-		<input type="submit" />
-	</form>
-	<h2>Buscar por Usuario</h2>
-	<form action="/search" method="GET">
-		<input type="text" name="search" id="search" th:value="${search}" />
-		<input type="submit" value="Search" />
-	</form>
+	<div class="container">
+
+		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" />
+		</form>
+
+		<br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellidos</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="user : ${userList}">
+					<td th:text="${user.nombre}"></td>
+					<td th:text="${user.apellidos}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br />
+		<h1 class="display-3">Añadir usuario</h1>
+		<form action="/addUser" method="POST">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="validationDefault01">Nombre</label> <input type="text"
+						class="form-control" id="nombre" name="nombre"
+						placeholder="Nombre" required="true"></input>
+				</div>
+				<div class="col-md-6 mb-3">
+					<label for="validationDefault02">Apellidos</label> <input
+						type="text" class="form-control" id="apellidos" name="apellidos"
+						placeholder="Apellidos" required="true"></input>
+				</div>
+			</div>
+			<br />
+			<button class="btn btn-primary" type="submit">Guardar</button>
+		</form>
+
+		<br />
+		<h1 class="display-3">Buscar usuario</h1>
+		<form action="/search" method="GET">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="validationDefault01">Nombre</label> <input type="text"
+						class="form-control" id="search" name="search"
+						th:value="${search}" placeholder="Nombre" required="true"></input>
+				</div>
+			</div>
+			<br />
+			<button class="btn btn-primary" type="submit">Buscar</button>
+		</form>
+
+		<br />
+		<h1 class="display-3">Borrar usuario</h1>
+		<form action="/delete" method="GET">
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="validationDefault01">Nombre</label> <input type="text"
+						class="form-control" id="delete" name="delete"
+						th:value="${search}" placeholder="Nombre" required="true"></input>
+				</div>
+			</div>
+			<br />
+			<button class="btn btn-primary" type="submit">Borrar</button>
+		</form>
+
+	</div>
+	<div th:replace="fragments/footer :: footer" />
+
 </body>
 </html>
