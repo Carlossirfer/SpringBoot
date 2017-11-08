@@ -12,11 +12,8 @@
 	<div th:replace="/fragments/header :: header"></div>
 
 	<div class="container">
-
 		<div class="starter-template">
-			<h1 th:text="${Exception}"></h1>
-			<div th:inline="text">Hello
-				'[[${#httpServletRequest.remoteUser}]]'</div>
+			<h1 th:text="${excepcion}"></h1>
 		</div>
 
 	</div>

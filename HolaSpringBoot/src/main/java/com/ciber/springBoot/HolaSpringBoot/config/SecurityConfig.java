@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultSuccessUrl("/home")
 			.permitAll()
 			.and()
-		.logout()                                                                                                              
+		.logout()
 			.logoutSuccessUrl("/login")                                           
 			.and()
             .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
