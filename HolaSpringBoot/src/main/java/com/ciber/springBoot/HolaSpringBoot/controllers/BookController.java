@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ciber.springBoot.HolaSpringBoot.HolaSpringBootApplication;
 import com.ciber.springBoot.HolaSpringBoot.beans.Book;
+import com.ciber.springBoot.HolaSpringBoot.constants.Constants;
 
 /**
  * @author ciber
@@ -25,7 +26,7 @@ public class BookController {
 	public ResponseEntity<Book[]> getAllBooks() throws Exception {
 		try {
 			ResponseEntity<Book[]> response = HolaSpringBootApplication.restTemplate
-					.getForEntity(HolaSpringBootApplication.URL_API_BOOKS, Book[].class);
+					.getForEntity(Constants.URL_API_BOOKS, Book[].class);
 			return response;
 		} catch (Exception e) {
 			throw new Exception("Error en BookController, getAllBooks(): " + e.getMessage() + " : " + e.getCause());
@@ -36,7 +37,7 @@ public class BookController {
 	public Book getBook(@PathVariable("bookId") long bookId) throws Exception {
 		try {
 			ResponseEntity<Book> response = HolaSpringBootApplication.restTemplate
-					.getForEntity(HolaSpringBootApplication.URL_API_BOOKS + bookId, Book.class, 12L);
+					.getForEntity(Constants.URL_API_BOOKS + bookId, Book.class, 12L);
 			return response.getBody();
 		} catch (Exception e) {
 			throw new Exception("Error en BookController, getBook(): " + e.getMessage() + " : " + e.getCause());

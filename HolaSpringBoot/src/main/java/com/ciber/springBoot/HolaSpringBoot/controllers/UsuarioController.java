@@ -11,8 +11,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ciber.springBoot.HolaSpringBoot.beans.MongoUser;
 import com.ciber.springBoot.HolaSpringBoot.beans.Usuario;
 import com.ciber.springBoot.HolaSpringBoot.daoMongo.DaoUsers;
 
@@ -43,18 +40,17 @@ public class UsuarioController {
 	@Autowired
 	@Qualifier(value = "mongoTemplateUsuariosLogin")
 	private MongoTemplate mongoLogin;
+	
+	@Autowired
+	private HttpSession httpSesion;
 
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping("/mongo")
-	public ModelAndView home(@AuthenticationPrincipal UserDetails userDetails, Model model, HttpSession httpSesion)
+	public ModelAndView home(Model model)
 			throws Exception {
 		try {
-			Query query = new Query();
-			query.addCriteria(Criteria.where("username").is(userDetails.getUsername()));
-			MongoUser user = mongoLogin.findOne(query, MongoUser.class, "users");
 			model.addAttribute("usuario", httpSesion.getAttribute("usuario").toString());
 			model.addAttribute("roles", httpSesion.getAttribute("roles").toString());
-			model.addAttribute("roles", user.getRoles());
 			model.addAttribute("userList", daoUsers.findAll());
 			return new ModelAndView("mongo");
 		} catch (Exception e) {
