@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>MongoDB/Spring Boot tutorial from tests4geeks.com</title>
+<div th:replace="fragments/header :: header-css" />
+</head>
+<body>
+	<div th:replace="fragments/header :: header" />
+
+	<div class="container">
+
+		<br/>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col">Titulo</th>
+					<th scope="col">Body</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="post : ${posts}">
+					<td th:text="${post.title}"></td>
+					<td th:text="${post.body}"></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+	<!-- /.container -->
+
+	<div th:replace="fragments/footer :: footer" />
+
+</body>
+</html>
