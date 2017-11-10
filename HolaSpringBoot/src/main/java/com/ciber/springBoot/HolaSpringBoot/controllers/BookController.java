@@ -20,20 +20,28 @@ import com.ciber.springBoot.HolaSpringBoot.beans.Book;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
-	
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Book[]> getAllBooks() {
-		ResponseEntity<Book[]> response = HolaSpringBootApplication.restTemplate.getForEntity(HolaSpringBootApplication.URL_API_BOOKS, Book[].class);
-		return response;
-				
+	public ResponseEntity<Book[]> getAllBooks() throws Exception {
+		try {
+			ResponseEntity<Book[]> response = HolaSpringBootApplication.restTemplate
+					.getForEntity(HolaSpringBootApplication.URL_API_BOOKS, Book[].class);
+			return response;
+		} catch (Exception e) {
+			throw new Exception("Error en BookController, getAllBooks(): " + e.getMessage() + " : " + e.getCause());
+		}
 	}
-    
-    @RequestMapping(value = "/{bookId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Book getBook(@PathVariable("bookId") long bookId) {
-    	 ResponseEntity<Book> response = HolaSpringBootApplication.restTemplate.getForEntity(HolaSpringBootApplication.URL_API_BOOKS + bookId, Book.class, 12L);
-    	 return response.getBody();
-    
-    }
+
+	@RequestMapping(value = "/{bookId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Book getBook(@PathVariable("bookId") long bookId) throws Exception {
+		try {
+			ResponseEntity<Book> response = HolaSpringBootApplication.restTemplate
+					.getForEntity(HolaSpringBootApplication.URL_API_BOOKS + bookId, Book.class, 12L);
+			return response.getBody();
+		} catch (Exception e) {
+			throw new Exception("Error en BookController, getBook(): " + e.getMessage() + " : " + e.getCause());
+		}
+
+	}
 
 }

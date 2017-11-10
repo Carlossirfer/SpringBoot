@@ -22,27 +22,37 @@ import com.ciber.springBoot.HolaSpringBoot.beans.Post;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
-	
+
 	@Secured({ "ROLE_USER" })
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Post[]> getAllPosts() {
-		ResponseEntity<Post[]> response = HolaSpringBootApplication.restTemplate.getForEntity(HolaSpringBootApplication.URL_API_PRUEBA, Post[].class);
-		return response;
-				
-	}
-    @Secured({ "ROLE_USER" })
-    @RequestMapping(value = "/{postId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Post getPost(@PathVariable("postId") long postId) {
-    	 ResponseEntity<Post> response = HolaSpringBootApplication.restTemplate.getForEntity(HolaSpringBootApplication.URL_API_PRUEBA + postId, Post.class);
-    	 return response.getBody();
-    }
-    
-    @ExceptionHandler(Exception.class)
-	public ModelAndView accesoDenegado(Exception ex, HttpServletResponse response) {
-		return new ModelAndView("error","Exception",ex);
+	public ResponseEntity<Post[]> getAllPosts() throws Exception {
+		try {
+			ResponseEntity<Post[]> response = HolaSpringBootApplication.restTemplate
+					.getForEntity(HolaSpringBootApplication.URL_API_PRUEBA, Post[].class);
+			return response;
+		} catch (Exception e) {
+			throw new Exception("Error en PostController, getAllPosts(): " + e.getMessage() + " : " + e.getCause());
+		}
+
 	}
 
-    
-    
+	@Secured({ "ROLE_USER" })
+	@RequestMapping(value = "/{postId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Post getPost(@PathVariable("postId") long postId) throws Exception {
+		try {
+			ResponseEntity<Post> response = HolaSpringBootApplication.restTemplate
+					.getForEntity(HolaSpringBootApplication.URL_API_PRUEBA + postId, Post.class);
+			return response.getBody();
+		} catch (Exception e) {
+			throw new Exception("Error en PostController, getAllPosts(): " + e.getMessage() + " : " + e.getCause());
+		}
+
+	}
+
+	// @ExceptionHandler(Exception.class)
+	// public ModelAndView accesoDenegado(Exception ex, HttpServletResponse
+	// response) {
+	// return new ModelAndView("error","Exception",ex);
+	// }
 
 }
