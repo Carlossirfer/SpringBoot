@@ -11,11 +11,21 @@ public class Book {
     private Long id;
     private String title;
  
-    public Long getId() {
+    
+    public Book(Long id, String title) {
+    	this.id = id;
+		this.title = title;
+	}
+    
+	public Book() {
+	}
+
+
+	public Long getId() {
         return id;
     }
  
-    public void setId(Long id) {
+	public void setId(Long id) {
         this.id = id;
     }
  
