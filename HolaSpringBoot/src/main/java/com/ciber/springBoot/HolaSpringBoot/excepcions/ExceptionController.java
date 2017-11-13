@@ -19,7 +19,6 @@ public class ExceptionController {
 	@ExceptionHandler(Exception.class)
 	public ModelAndView exceptionHandler(Exception e) {
 		ModelAndView model = new ModelAndView();
-		
 		//CONTROL DEL ERROR 404
 		if (e.getClass()==HttpClientErrorException.class) {
 			model.addObject("excepcion", e);

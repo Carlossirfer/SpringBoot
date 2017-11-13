@@ -6,7 +6,6 @@
 	<groupId>com.ciber.springBoot</groupId>
 	<artifactId>HolaSpringBoot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
 
 	<name>HolaSpringBoot</name>
 	<description>Demo project for Spring Boot</description>
@@ -23,7 +22,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
-
+	
 	<dependencies>
 
 		<dependency>
@@ -74,11 +73,8 @@
 			<version>2.8.10</version>
 		</dependency>
 
-	<!-- 	<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.4.6</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>com.fasterxml.jackson.dataformat</groupId> <artifactId>jackson-dataformat-xml</artifactId> 
+			<version>2.4.6</version> </dependency> -->
 
 		<dependency>
 			<groupId>javax</groupId>
