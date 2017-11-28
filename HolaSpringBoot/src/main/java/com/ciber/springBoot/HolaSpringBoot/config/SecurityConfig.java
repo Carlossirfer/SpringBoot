@@ -35,9 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	
     	http
 		.authorizeRequests()
-		.antMatchers("/").permitAll()
-		.antMatchers("/mongo").hasAnyAuthority("ROLE_ADMIN")
-		.antMatchers("/api/posts").hasAnyAuthority("ROLE_USER")
+		.antMatchers("/*").permitAll()
+		.antMatchers("/bbdd/mongo").hasAnyAuthority("ROLE_ADMIN")
+		.antMatchers("/rest/api/posts").hasAnyAuthority("ROLE_USER")
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
@@ -58,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider);
     }
+    
+    
     
     
 }

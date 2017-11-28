@@ -1,7 +1,5 @@
-/**
- * 
- */
 package com.ciber.springBoot.HolaSpringBoot.config;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -18,19 +16,21 @@ import com.mongodb.MongoClient;
 @Configuration
 @EnableMongoRepositories(basePackages="com.ciber.springBoot.daoMongo")
 public class SimpleMongoConfig {
-  
+	 
+
+	
     @Bean
     public Mongo mongo() throws Exception {
         return new MongoClient("localhost");
     }
     
     @Primary
-    @Bean(name = "mongoTemplateBasePrueba") 
+    @Bean(name = "mongoTemplateBasePrueba")
     public MongoTemplate mongoApp() throws Exception {
         return new MongoTemplate(mongo(), "baseprueba");
     }
     
-    @Bean(name = "mongoTemplateUsuariosLogin") 
+    @Bean(name = "mongoTemplateUsuariosLogin")
     public MongoTemplate mongoLogin() throws Exception {
         return new MongoTemplate(mongo(), "usuarioslogin");
     }

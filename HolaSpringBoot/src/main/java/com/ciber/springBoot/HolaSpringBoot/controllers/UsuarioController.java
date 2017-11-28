@@ -3,8 +3,6 @@
  */
 package com.ciber.springBoot.HolaSpringBoot.controllers;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,17 +39,16 @@ public class UsuarioController {
 	@Autowired
 	@Qualifier(value = "mongoTemplateUsuariosLogin")
 	private MongoTemplate mongoLogin;
-	
-	@Autowired
-	private HttpSession httpSesion;
+
+//	@Autowired
+//	private HttpSession httpSesion;
 
 	@Secured({ "ROLE_ADMIN" })
 	@RequestMapping("/mongo")
-	public ModelAndView home(Model model)
-			throws Exception {
+	public ModelAndView mongo(Model model) throws Exception {
 		try {
-			model.addAttribute("usuario", httpSesion.getAttribute("usuario").toString());
-			model.addAttribute("roles", httpSesion.getAttribute("roles").toString());
+//			model.addAttribute("usuario", httpSesion.getAttribute("usuario").toString());
+//			model.addAttribute("roles", httpSesion.getAttribute("roles").toString());
 			model.addAttribute("userList", daoUsers.findAll());
 			return new ModelAndView("mongo");
 		} catch (Exception e) {
@@ -77,14 +75,13 @@ public class UsuarioController {
 	}
 
 	@RequestMapping("/home")
-	public String home(HttpSession httpSesion, Model model) throws Exception {
-		try {
-			model.addAttribute("usuario", httpSesion.getAttribute("usuario").toString());
-			model.addAttribute("roles", httpSesion.getAttribute("roles").toString());
-			return "home";
-		} catch (Exception e) {
-			throw new Exception("Error en la vista home: " + e.getMessage() + " : " + e.getCause());
-		}
+	public String home() throws Exception {
+		return "home";
+	}
+
+	@PostMapping("/login")
+	public void loginPost() throws Exception {
+		System.out.println("Entra en post login");
 	}
 
 	@RequestMapping("/login")

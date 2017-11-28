@@ -63,8 +63,8 @@ public class MongoDBAuthenticationProvider extends AbstractUserDetailsAuthentica
 			loadedUser = new User(user.getUsername(), user.getPassword(), authoritys);
 
 			// GUARDAMOS EN LA SESION El usuario y los roles
-			httpSession.setAttribute("usuario", loadedUser.getUsername());
-			httpSession.setAttribute("roles", roles);
+//			httpSession.setAttribute("usuario", loadedUser.getUsername());
+//			httpSession.setAttribute("roles", roles);
 
 		} catch (Exception repositoryProblem) {
 			throw new InternalAuthenticationServiceException(repositoryProblem.getMessage(), repositoryProblem);

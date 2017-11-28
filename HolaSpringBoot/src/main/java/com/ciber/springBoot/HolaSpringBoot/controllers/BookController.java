@@ -20,13 +20,12 @@ import com.ciber.springBoot.HolaSpringBoot.rest.BookService;
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
-
+	
 	@Autowired
 	public BookService bookService;
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Book[] getAllBooks() throws Exception {
-
 		return bookService.getAllBooks();
 	}
 
