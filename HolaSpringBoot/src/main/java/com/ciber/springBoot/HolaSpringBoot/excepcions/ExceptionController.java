@@ -4,17 +4,14 @@
 package com.ciber.springBoot.HolaSpringBoot.excepcions;
 
 import org.springframework.security.access.AccessDeniedException;
-/**
- * @author ciber
- *
- */
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-@ControllerAdvice
+@Controller
 public class ExceptionController {
 
 
@@ -25,11 +22,11 @@ public class ExceptionController {
 		//CONTROL DEL ERROR 404
 		if (e.getClass()==HttpClientErrorException.class) {
 			model.addObject("excepcion", e);
-			model.setViewName("/error/404");
+			model.setViewName("/errores/404");
 			return model;
 		}
 		if (e.getClass()==AccessDeniedException.class) {
-			model.setViewName("/error/403");
+			model.setViewName("/errores/403");
 			return model;
 		}
 		model.addObject("excepcion", e);
@@ -45,5 +42,11 @@ public class ExceptionController {
 	       model.addObject("excepcion",e);
 	       return model;
 	    }
+	  
+	  
+	  @GetMapping("/404")
+	  public String error404(){
+		  return "/error/404";
+	  }
 
 }

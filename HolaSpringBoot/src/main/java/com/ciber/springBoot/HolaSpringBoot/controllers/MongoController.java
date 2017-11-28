@@ -27,7 +27,7 @@ import com.ciber.springBoot.HolaSpringBoot.daoMongo.DaoUsers;
  *
  */
 @Controller
-public class UsuarioController {
+public class MongoController {
 
 	@Autowired
 	DaoUsers daoUsers;

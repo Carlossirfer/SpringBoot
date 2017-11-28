@@ -16,7 +16,7 @@ import com.ciber.springBoot.HolaSpringBoot.rest.PostService;
  */
 @RestController
 @RequestMapping("/api/posts")
-public class PostController {
+public class RestControllerPost {
 
 //	@Autowired
 //	private HttpSession httpSesion;

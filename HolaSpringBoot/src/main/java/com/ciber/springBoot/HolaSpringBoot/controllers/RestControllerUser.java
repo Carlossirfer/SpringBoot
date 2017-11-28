@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ciber.springBoot.HolaSpringBoot.controllers;
 
 import java.util.List;
@@ -25,7 +22,7 @@ import com.ciber.springBoot.HolaSpringBoot.services.UserService;
  */
 @RestController
 @RequestMapping("/api/users")
-public class UserControllerRest {
+public class RestControllerUser {
 
 	@Autowired
 	private UserService userService;

@@ -19,7 +19,7 @@ import com.ciber.springBoot.HolaSpringBoot.rest.BookService;
  */
 @RestController
 @RequestMapping("/api/books")
-public class BookController {
+public class RestControllerBook {
 	
 	@Autowired
 	public BookService bookService;

@@ -24,7 +24,7 @@ import com.ciber.springBoot.HolaSpringBoot.rest.BookService;
  *
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(value = BookController.class, secure = false)
+@WebMvcTest(value = RestControllerBook.class, secure = false)
 public class BookContollerTest {
 
 	@Autowired
