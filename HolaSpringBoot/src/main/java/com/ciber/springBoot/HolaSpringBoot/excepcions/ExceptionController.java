@@ -26,7 +26,7 @@ public class ExceptionController {
 			return model;
 		}
 		if (e.getClass()==AccessDeniedException.class) {
-			model.setViewName("/errores/403");
+			model.setViewName("errores/403");
 			return model;
 		}
 		model.addObject("excepcion", e);
