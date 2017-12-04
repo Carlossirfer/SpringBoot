@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -79,10 +78,14 @@ public class MongoController {
 		return "home";
 	}
 
-	@PostMapping("/login")
-	public void loginPost() throws Exception {
-		System.out.println("Entra en post login");
-	}
+//	@PostMapping("/login")
+//	public void loginPost(@ModelAttribute LoginUser usuario) throws Exception {
+//		System.out.println("Entra en post login");
+//		
+//		System.out.println("USERNAME----------"+usuario.getUsername());
+//
+//		System.out.println("PASSWORD----------"+usuario.getPassword());
+//	}
 
 	@RequestMapping("/login")
 	public String login() throws Exception {
@@ -121,7 +124,7 @@ public class MongoController {
 
 	@GetMapping("/403")
 	public String error403() {
-		return "/error/403";
+		return "/errores/403";
 	}
 
 }
