@@ -117,14 +117,4 @@ public class MongoController {
 
 	}
 
-	@GetMapping("/lanzarError")
-	public String lanzaError() throws Exception {
-		throw new Exception("excepcion");
-	}
-
-	@GetMapping("/403")
-	public String error403() {
-		return "/errores/403";
-	}
-
 }

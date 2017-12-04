@@ -43,10 +43,14 @@ public class ExceptionController {
 	       return model;
 	    }
 	  
-	  
-	  @GetMapping("/404")
-	  public String error404(){
-		  return "/error/404";
-	  }
+		@GetMapping("/403")
+		public String error403() {
+			return "/errores/403";
+		}
+		
+		@GetMapping("/404")
+		public String error404() {
+			return "/errores/404";
+		}
 
 }
