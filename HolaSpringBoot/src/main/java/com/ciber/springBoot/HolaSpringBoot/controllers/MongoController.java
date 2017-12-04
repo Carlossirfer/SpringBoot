@@ -121,7 +121,7 @@ public class MongoController {
 
 	@GetMapping("/403")
 	public String error403() {
-		return "/errores/403";
+		return "/error/403";
 	}
 
 }
