@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ciber.springBoot.HolaSpringBoot.beans.Book;
 import com.ciber.springBoot.HolaSpringBoot.beans.Post;
@@ -23,7 +24,7 @@ import com.ciber.springBoot.HolaSpringBoot.util.json.JsonResponse;
  *
  */
 @RestController
-public class CapaRest {
+public class capaRest {
 
 	@Autowired
 	private CapaHandler handler;
@@ -50,13 +51,14 @@ public class CapaRest {
 	public JsonResponse obtenerPosts() {
 		return handler.obtenerPosts();
 	}
-
+	
 	// OBTENER UN POST
 	// @Secured({ "ROLE_USER" })
 	@PostMapping(value = RestConstants.OBTENER_POST, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public JsonResponse obtenerPost(@RequestBody Post post) {
 		return handler.obtenerPost(post);
 	}
+	
 	/*
 	 * API REST
 	 */
@@ -87,7 +89,7 @@ public class CapaRest {
 
 	// BORRAR UN USUARIO EN MONGO
 	// @Secured({ "ROLE_ADMIN" })
-	@PostMapping(value = RestConstants.OBTENER_POST, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	@PostMapping(value = RestConstants.BORRAR_USUARIO_MONGO, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public JsonResponse borrarUsuarioMongo(@RequestBody Usuario usuario) {
 		return handler.borrarUsuarioMongo(usuario);
 	}
@@ -100,18 +102,18 @@ public class CapaRest {
 	 */
 	
 	@RequestMapping("/")
-	public String index() throws Exception {
-		return "index";
+	public ModelAndView index() throws Exception {
+		return new ModelAndView("index");
 	}
 
 	@RequestMapping("/home")
-	public String home() throws Exception {
-		return "home";
+	public ModelAndView home() throws Exception {
+		return new ModelAndView("home");
 	}
 	
 	@RequestMapping("/login")
-	public String login() throws Exception {
-		return "login";
+	public ModelAndView login() throws Exception {
+		return new ModelAndView("login");
 	}
 	
 	/*

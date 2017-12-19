@@ -33,7 +33,7 @@ public class AppConfig {
     @Bean
     public ServletRegistrationBean dispatcherServletRegistrationBbdd() {
         ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/s/*");
-        registration.setName("s");
+        registration.setName("servlet");
         return registration;
     }
     
