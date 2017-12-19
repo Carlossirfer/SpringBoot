@@ -11,10 +11,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ciber.springBoot.HolaSpringBoot.filters.JwtFilter;
-import com.ciber.springBoot.HolaSpringBoot.filters.LoginFilter;
 import com.ciber.springBoot.HolaSpringBoot.security.MongoDBAuthenticationProvider;
 
 
@@ -39,16 +36,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     	
     	http
 		.authorizeRequests()
-		.antMatchers("/*").permitAll()
+		.antMatchers("/s/*").permitAll()
 		.antMatchers(HttpMethod.POST, "/login").permitAll()
-		.antMatchers("/bbdd/mongo").hasAnyAuthority("ROLE_ADMIN")
-		.antMatchers("/rest/api/posts").hasAnyAuthority("ROLE_USER")
+//		.antMatchers("/s/getU").hasAnyAuthority("ROLE_ADMIN")
+//		.antMatchers("/rest/api/posts").hasAnyAuthority("ROLE_USER")
 			.anyRequest().authenticated()
 			.and()
 		.formLogin()
-			.loginPage("/login")
+			.loginPage("/s/login")
 			.loginProcessingUrl("/login")
-			.defaultSuccessUrl("/home")
+			.defaultSuccessUrl("/s/home")
 			.permitAll()
 			.and()
 //			 // We filter the api/login requests
@@ -58,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	        .addFilterBefore(new JwtFilter(),
 //	                UsernamePasswordAuthenticationFilter.class)
 		.logout()
-			.logoutSuccessUrl("/login")                                           
+			.logoutSuccessUrl("/s/login")                                           
 			.and()
             .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
             .and()
