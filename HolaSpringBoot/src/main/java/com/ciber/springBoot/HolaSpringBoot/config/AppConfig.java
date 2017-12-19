@@ -4,8 +4,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.geo.Distance;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -34,25 +32,25 @@ public class AppConfig {
 
     @Bean
     public ServletRegistrationBean dispatcherServletRegistrationBbdd() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/bbdd/*");
-        registration.setName("bbdd");
+        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/s/*");
+        registration.setName("s");
         return registration;
     }
     
-    @Bean
-    public ServletRegistrationBean dispatcherServletRegistrationRest() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/rest/*");
-        registration.setName("rest");
-        return registration;
-    }
-    
-    
-    @Bean
-    public ServletRegistrationBean dispatcherServletRegistrationDefault() {
-        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/*");
-        registration.setName("default");
-        return registration;
-    }
+//    @Bean
+//    public ServletRegistrationBean dispatcherServletRegistrationRest() {
+//        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/rest/*");
+//        registration.setName("rest");
+//        return registration;
+//    }
+//    
+//    
+//    @Bean
+//    public ServletRegistrationBean dispatcherServletRegistrationDefault() {
+//        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/*");
+//        registration.setName("default");
+//        return registration;
+//    }
 
 
 }
