@@ -11,11 +11,31 @@ public class Usuario {
 
 	private String nombre;
 	private String apellidos;
+	private String email;
 
 	
 	public Usuario() {
 	
 	}
+
+	
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 
 
 	/**
@@ -50,13 +70,16 @@ public class Usuario {
 	}
 
 
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", apellidos=" + apellidos + "]";
+		return "Usuario [nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email + "]";
 	}
+
+
 	
 
 

@@ -3,8 +3,13 @@
  */
 package com.ciber.springBoot.HolaSpringBoot.rest;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +22,7 @@ import com.ciber.springBoot.HolaSpringBoot.beans.Post;
 import com.ciber.springBoot.HolaSpringBoot.beans.Usuario;
 import com.ciber.springBoot.HolaSpringBoot.constants.RestConstants;
 import com.ciber.springBoot.HolaSpringBoot.handler.CapaHandler;
+import com.ciber.springBoot.HolaSpringBoot.util.CreatePdfCat;
 import com.ciber.springBoot.HolaSpringBoot.util.json.JsonResponse;
 
 /**
@@ -29,7 +35,6 @@ public class capaRest {
 	@Autowired
 	private CapaHandler handler;
 
-	
 	/*
 	 * API REST
 	 */
@@ -51,14 +56,14 @@ public class capaRest {
 	public JsonResponse obtenerPosts() {
 		return handler.obtenerPosts();
 	}
-	
+
 	// OBTENER UN POST
 	// @Secured({ "ROLE_USER" })
 	@PostMapping(value = RestConstants.OBTENER_POST, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public JsonResponse obtenerPost(@RequestBody Post post) {
 		return handler.obtenerPost(post);
 	}
-	
+
 	/*
 	 * API REST
 	 */
@@ -96,11 +101,11 @@ public class capaRest {
 	/*
 	 * MONGO
 	 */
-	
+
 	/*
 	 * LLAMADAS A VISTAS HTML
 	 */
-	
+
 	@RequestMapping("/")
 	public ModelAndView index() throws Exception {
 		return new ModelAndView("index");
@@ -110,16 +115,62 @@ public class capaRest {
 	public ModelAndView home() throws Exception {
 		return new ModelAndView("home");
 	}
-	
+
 	@RequestMapping("/login")
 	public ModelAndView login() throws Exception {
 		return new ModelAndView("login");
 	}
-	
+
 	/*
 	 * LLAMADAS A VISTAS HTML
 	 */
-	
-	
 
+	
+	/*
+	 * GENERAR PDF
+	 */
+//
+	@GetMapping(value = RestConstants.GENERAR_PDF_USUARIOS, produces = { MediaType.APPLICATION_PDF_VALUE })
+	public void generarPdf() {
+		CreatePdfCat createPdf=new CreatePdfCat();
+		try {
+			createPdf.CreatePdf(handler.pdfUsuarios());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		ByteArrayInputStream bis = GeneratePdfReport.citiesReport(lista);
+//
+//		HttpHeaders headers = new HttpHeaders();
+//		headers.add("Content-Disposition", "inline; filename=citiesreport.pdf");
+//
+//		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+//				.body(new InputStreamResource(bis));
+	}
+	
+	/*
+	 * GENERAR PDF
+	 */
+	
+	
+	/*
+	 * ENVIAR EMAIL
+	 */
+
+	// ENVIAR EMAIL
+		// @Secured({ "ROLE_ADMIN" })
+		@PostMapping(value = RestConstants.ENVIAR_EMAIL, produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+		public JsonResponse enviarEmail(@RequestBody Usuario usuario) {
+			return handler.enviarEmail(usuario);
+		}
+
+	/*
+	 * ENVIAR EMAIL
+	 */
+	
+	
 }
+
+
+

@@ -1,9 +1,13 @@
 package com.ciber.springBoot.HolaSpringBoot.config;
 
+import java.util.Properties;
+
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -36,7 +40,7 @@ public class AppConfig {
         registration.setName("servlet");
         return registration;
     }
-    
+  
 //    @Bean
 //    public ServletRegistrationBean dispatcherServletRegistrationRest() {
 //        ServletRegistrationBean registration = new ServletRegistrationBean(dispatcherServlet(), "/rest/*");
