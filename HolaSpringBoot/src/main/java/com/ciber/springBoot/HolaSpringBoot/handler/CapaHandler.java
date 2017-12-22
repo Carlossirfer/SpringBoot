@@ -3,6 +3,8 @@
  */
 package com.ciber.springBoot.HolaSpringBoot.handler;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.ciber.springBoot.HolaSpringBoot.beans.Post;
 import com.ciber.springBoot.HolaSpringBoot.beans.Usuario;
 import com.ciber.springBoot.HolaSpringBoot.controllers.ApiService;
 import com.ciber.springBoot.HolaSpringBoot.controllers.DaoMongo;
+import com.ciber.springBoot.HolaSpringBoot.controllers.EmailController;
 import com.ciber.springBoot.HolaSpringBoot.exception.ExceptionHandler;
 import com.ciber.springBoot.HolaSpringBoot.util.json.JsonResponse;
 
@@ -26,6 +29,9 @@ public class CapaHandler {
 
 	@Autowired
 	private DaoMongo daoMongo;
+	
+	@Autowired
+	private EmailController emailController;
 
 	// OBTENEMOS LIBROS DE API
 	public JsonResponse obtenerLibros() {
@@ -109,6 +115,22 @@ public class CapaHandler {
 		JsonResponse jsonResponse = new JsonResponse();
 		try {
 			daoMongo.deleteUserMongo(usuario);
+		} catch (Exception e) {
+			jsonResponse = new JsonResponse(ExceptionHandler.handleGenericException(e));
+		}
+		return jsonResponse;
+	}
+
+	// OBTENEMOS USUARIOS PARA EL PDF
+	public List<Usuario> pdfUsuarios() {
+		return daoMongo.getAllUsers();
+	}
+	
+	//ENVIAR EMAIL
+	public JsonResponse enviarEmail(Usuario usuario){
+		JsonResponse jsonResponse=new JsonResponse();
+		try {
+			emailController.enviarEmail(usuario);
 		} catch (Exception e) {
 			jsonResponse = new JsonResponse(ExceptionHandler.handleGenericException(e));
 		}
